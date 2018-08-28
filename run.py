@@ -10,7 +10,7 @@ import os
 Client = discord.Client()
 client = commands.Bot(command_prefix = "?")
 
-chat_filter = ["LOL", "LMAO", "LEL"]
+chat_filter = ["?HELP", "HELP", "I NEED HELP"]
 bypass_list = []
 
 
@@ -22,7 +22,8 @@ async def on_message(message):
         if word.upper() in chat_filter:
             if not message.author.id in bypass_list:
                 try:
-                    await client.send_message(message.channel, "🤔 What is it so funny about?")
+                    await client.send_message(message.channel, "***Commands Plugin Commands***)
+                    await client.send_message(message.channel, "!help)                          
                 except discord.errors.NotFound:
                     return
                 

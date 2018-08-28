@@ -34,7 +34,7 @@ async def on_message(message):
                                  
 @client.event
 async def on_ready():
-      await client.change_presence(acitivity=discord.Game(name="Testing & Fixing ⛏"))
+      await client.change_presence(gamey=discord.Game(name="Testing & Fixing ⛏"))
         
         
         

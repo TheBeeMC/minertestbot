@@ -6,12 +6,14 @@ import time
 import os
 
 
-Client = discord.Client()
 
+Client = discord.Client()
 client = commands.Bot(command_prefix = "?")
 
-chat_filter = ["LOL", "LMAO"]
+chat_filter = ["LOL", "LMAO", "LEL"]
 bypass_list = []
+
+
 
 @client.event
 async def on_message(message):
@@ -21,21 +23,22 @@ async def on_message(message):
             if not message.author.id in bypass_list:
                 try:
                     await client.delete_message(message)
-                    await client.send_message(message.channel, "What is so funny?")
+                    await client.send_message(message.channel, "**Hey!** What so funny")
                 except discord.errors.NotFound:
                     return
-         
                 
+                
+                
+
+      
+                        
                                  
 @client.event
 async def on_ready():
-      await client.change_presence(activity=discord.Game(name="Testing & Fixing"))
+      await client.change_presence(game=discord.Game(name="Testing & Fixing ⛏"))
         
         
         
-                    
-
-
+      
+        
 client.run(os.getenv('TOKEN'))
-
-            

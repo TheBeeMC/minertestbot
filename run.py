@@ -17,7 +17,7 @@ async def on_ready():
 @client.command()
 async def add(left : int, right : int):
     """Adds two numbers together."""
-    await bot.say(left + right)
+    await client.say(left + right)
 
 @client.command()
 async def roll(dice : str):
@@ -25,27 +25,27 @@ async def roll(dice : str):
     try:
         rolls, limit = map(int, dice.split('d'))
     except Exception:
-        await bot.say('Format has to be in NdN!')
+        await client.say('Format has to be in NdN!')
         return
 
     result = ', '.join(str(random.randint(1, limit)) for r in range(rolls))
-    await bot.say(result)
+    await client.say(result)
 
 @client.command(description='For when you wanna settle the score some other way')
 async def choose(*choices : str):
     """Chooses between multiple choices."""
-    await bot.say(random.choice(choices))
+    await client.say(random.choice(choices))
 
 @client.command()
 async def repeat(times : int, content='repeating...'):
     """Repeats a message multiple times."""
     for i in range(times):
-        await bot.say(content)
+        await client.say(content)
 
 @bot.command()
 async def joined(member : discord.Member):
     """Says when a member joined."""
-    await bot.say('{0.name} joined in {0.joined_at}'.format(member))
+    await client.say('{0.name} joined in {0.joined_at}'.format(member))
 
 @client.group(pass_context=True)
 async def cool(ctx):
@@ -53,12 +53,12 @@ async def cool(ctx):
     In reality this just checks if a subcommand is being invoked.
     """
     if ctx.invoked_subcommand is None:
-        await bot.say('No, {0.subcommand_passed} is not cool'.format(ctx))
+        await client.say('No, {0.subcommand_passed} is not cool'.format(ctx))
 
 @client.command(name='bot')
 async def _bot():
     """Is the bot cool?"""
-    await bot.say('Yes, the bot is cool.')
+    await client.say('Yes, the bot is cool.')
                 
                                  
 @client.event

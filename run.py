@@ -1,30 +1,64 @@
 import discord
 from discord.ext import commands
 import random
-import asyncio
-import time
-import os
 
+description = '''An example bot to showcase the discord.ext.commands extension
+module.
+There are a number of utility commands being showcased here.'''
+client = discord.Client(command_prefix='?', description=description)
 
-Client = discord.Client()
+@cliet.event
+async def on_ready():
+    print('Logged in as')
+    print(bot.user.name)
+    print(bot.user.id)
+    print('------')
 
-client = commands.Bot(command_prefix = "?")
+@client.command()
+async def add(left : int, right : int):
+    """Adds two numbers together."""
+    await bot.say(left + right)
 
-chat_filter = ["LOL", "LMAO"]
-bypass_list = []
+@client.command()
+async def roll(dice : str):
+    """Rolls a dice in NdN format."""
+    try:
+        rolls, limit = map(int, dice.split('d'))
+    except Exception:
+        await bot.say('Format has to be in NdN!')
+        return
 
-@client.event
-async def on_message(message):
-    contents = message.content.split(" ") #contents is a list type
-    for word in contents:
-        if word.upper() in chat_filter:
-            if not message.author.id in bypass_list:
-                try:
-                    await client.delete_message(message)
-                    await client.send_message(message.channel, "What is so funny?")
-                except discord.errors.NotFound:
-                    return
-         
+    result = ', '.join(str(random.randint(1, limit)) for r in range(rolls))
+    await bot.say(result)
+
+@client.command(description='For when you wanna settle the score some other way')
+async def choose(*choices : str):
+    """Chooses between multiple choices."""
+    await bot.say(random.choice(choices))
+
+@client.command()
+async def repeat(times : int, content='repeating...'):
+    """Repeats a message multiple times."""
+    for i in range(times):
+        await bot.say(content)
+
+@bot.command()
+async def joined(member : discord.Member):
+    """Says when a member joined."""
+    await bot.say('{0.name} joined in {0.joined_at}'.format(member))
+
+@client.group(pass_context=True)
+async def cool(ctx):
+    """Says if a user is cool.
+    In reality this just checks if a subcommand is being invoked.
+    """
+    if ctx.invoked_subcommand is None:
+        await bot.say('No, {0.subcommand_passed} is not cool'.format(ctx))
+
+@client.command(name='bot')
+async def _bot():
+    """Is the bot cool?"""
+    await bot.say('Yes, the bot is cool.')
                 
                                  
 @client.event
@@ -33,8 +67,7 @@ async def on_ready():
         
         
         
-                    
-
+                  
 
 client.run(os.getenv('TOKEN'))
 

@@ -22,7 +22,7 @@ async def on_message(message):
         if word.upper() in chat_filter:
             if not message.author.id in bypass_list:
                 try:
-                    await client.send_message(message.channel, "**Hey!** What so funny")
+                    await client.send_message(message.channel, "🤔 What is it so funny about?")
                 except discord.errors.NotFound:
                     return
                 

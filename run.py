@@ -22,7 +22,6 @@ async def on_message(message):
         if word.upper() in chat_filter:
             if not message.author.id in bypass_list:
                 try:
-                    await client.delete_message(message)
                     await client.send_message(message.channel, "**Hey!** What so funny")
                 except discord.errors.NotFound:
                     return
